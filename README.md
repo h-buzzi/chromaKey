@@ -2,6 +2,10 @@
 
 Código para aplicação de Chromakey
 
+main possui versão mais otimizada, demora 0,02 até 0,06 segundos para calcular a distância em cada frame;
+versao-original é a primeira versão escrita, é a menos otimizada e demorada, dando então origem as versões otimizadas;
+versao-2-primeiraOtimização é a primeira otimização implementada, diminuindo em 50% o tempo, mas ainda acima de 1s;
+
 ######### Modo de usar:
 
 Antes de executar, defina seu Limiar (define qual o threshold aceitável para proximidade), quanto menor o valor, pega apenas os pixels que ficaram mais próximas da cor de referência. Define um valor acima de 0.
