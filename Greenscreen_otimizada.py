@@ -3,6 +3,8 @@
 Created on Thu Nov  4 10:10:02 2021
 
 @author: hbuzzi
+
+Cálculo da imagem de distância mais otimizada
 """
 
 import cv2
@@ -42,7 +44,6 @@ def get_ref_color(video_name):
             if key == 13: #Se deu Enter, significa que o ponto de referência está certo
                 cv2.setMouseCallback(w_name, lambda *args : None) #Termina a função do mouse
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
-                print(dsr_point)
                 ref = frame[dsr_point[0][0],dsr_point[0][1],:] # Usa a variável global no frame atual para salvar a ref
                 break #Sai do loop
             elif key == 32: #Se deu espaço, ponto errado
