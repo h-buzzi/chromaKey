@@ -33,4 +33,5 @@ Captação de referência, cálculo de distância euclidiana, criação de másc
 
 ## Possíveis implementações futuras
 
-* Função aceitar um parâmetro que define se o usuário quer gravar o vídeo na saída ou não.
+* <s>Função aceitar um parâmetro que define se o usuário quer gravar o vídeo na saída ou não.</s> Implementado
+* Função que pega cor de referência retornar outros espaços de cor, escolhido pelo usuário
