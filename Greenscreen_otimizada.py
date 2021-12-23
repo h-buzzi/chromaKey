@@ -27,7 +27,8 @@ def get_ref_color(video_name):
     ###Nested Function
     def mouse_event(event, col, lin, flags, *userdata): #Função clique mouse
         if event == cv2.EVENT_LBUTTONDOWN: #Se pressionar o botão esquerdo
-            dsr_point.append((lin,col)) #Salva a posição do clique na ref
+            del dsr_point[0] #Salva a posição do clique na ref
+            dsr_point.append((lin,col))
             copied = frame.copy() #Cria uma cópia do frame
             cv2.circle(copied, (col,lin), 1,(0,0,255),-1) #Desenha círculo no ponto clicado
             cv2.imshow(w_name,copied) #Mostra o círculo na imagem copiada (não modifica o frame original), para o usuário saber se está certo
@@ -40,7 +41,9 @@ def get_ref_color(video_name):
         if not has_frame: #Se não tiver mais frame
             sys.exit() #Ele finaliza a aplicação, pois o usuário chegou no final sem fazer nada
         cv2.imshow(w_name, frame) #Mostra o frame
-        key = cv2.waitKey(0) #Espera um input do teclado do usuário
+        key = 0
+        while (key != 32 and key != 27 and key != ord('C') and key != ord('c')):
+            key = cv2.waitKey(0) #Espera um input do teclado do usuário
         if key == 27: #Se pressionou esc
             cv2.destroyWindow(w_name) #Fecha a janela
             video.release() #Libera o vídeo
@@ -48,9 +51,11 @@ def get_ref_color(video_name):
         elif key == 32: #Se pressionar espaço
             continue #pula pro próximo frame até ele chegar no desejado
         elif key == ord('C') or key == ord('c'):
-            dsr_point = []
+            dsr_point = [(0,0)]
             cv2.setMouseCallback(w_name, mouse_event) # Chama função de clicar mouse
-            key = cv2.waitKey(0) # Espera o usuário pressionar
+            key = 0
+            while (key != 13 and key != 32 and key != 27):
+                key = cv2.waitKey(0) # Espera o usuário pressionar
             if key == 13: #Se deu Enter, significa que o ponto de referência está certo
                 cv2.setMouseCallback(w_name, lambda *args : None) #Termina a função do mouse
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
@@ -59,6 +64,10 @@ def get_ref_color(video_name):
             elif key == 32: #Se deu espaço, ponto errado
                 cv2.setMouseCallback(w_name, lambda *args : None) #Termina a função do mouse
                 continue #Vai pro próximo passo pois ele vai selecionar outro valor ou sair
+            elif key == 27:
+                cv2.destroyWindow(w_name) #Fecha a janela
+                video.release() #Libera o vídeo
+                sys.exit() #Termina o código
     video.release() #Solta o vídeo
     cv2.destroyWindow(w_name) #Fecha a janela
     return ref #Retorna a referência
